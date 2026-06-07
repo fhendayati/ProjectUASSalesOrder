@@ -8,6 +8,19 @@
                 Dashboard
             </h1>
 
+            <div class="card shadow mb-4">
+                <div class="card-body">
+                    <h4>
+                        Selamat Datang,
+                        <?= $this->session->userdata('name'); ?>
+                    </h4>
+
+                    <p>
+                        Sales Order System siap digunakan.
+                    </p>
+                </div>
+            </div>
+
             <div class="row">
 
                 <!-- Products -->
@@ -18,7 +31,7 @@
                                 Total Products
                             </h6>
                             <div class="h4 mb-0 font-weight-bold text-gray-800">
-                                0
+                                <?= $total_products; ?>
                             </div>
                         </div>
                     </div>
@@ -32,7 +45,7 @@
                                 Total Customers
                             </h6>
                             <div class="h4 mb-0 font-weight-bold text-gray-800">
-                                0
+                                <?= $total_customers; ?>
                             </div>
                         </div>
                     </div>
@@ -46,25 +59,12 @@
                                 Total Orders
                             </h6>
                             <div class="h4 mb-0 font-weight-bold text-gray-800">
-                                0
+                                <?= $total_orders; ?>
                             </div>
                         </div>
                     </div>
                 </div>
 
-            </div>
-
-            <div class="card shadow mb-4">
-                <div class="card-body">
-                    <h4>
-                        Selamat Datang,
-                        <?= $this->session->userdata('name'); ?>
-                    </h4>
-
-                    <p>
-                        Sales Order System siap digunakan.
-                    </p>
-                </div>
             </div>
 
         </div>

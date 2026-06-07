@@ -10,7 +10,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Dashboard -->
-    <li class="nav-item active">
+    <li class="nav-item">
         <a class="nav-link" href="<?= base_url('index.php/dashboard'); ?>">
             <span>Dashboard</span>
         </a>
@@ -18,26 +18,52 @@
 
     <hr class="sidebar-divider">
 
-    <!-- Products -->
-    <li class="nav-item">
-        <a class="nav-link" href="<?= base_url('index.php/products'); ?>">
-            <span>Products</span>
-        </a>
-    </li>
+    <?php if($this->session->userdata('role_id') == 1): ?>
+        <!-- ADMIN -->
 
-    <!-- Customers -->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <span>Customers</span>
-        </a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('index.php/products'); ?>">
+                <span>Products</span>
+            </a>
+        </li>
 
-    <!-- Orders -->
-    <li class="nav-item">
-        <a class="nav-link" href="#">
-            <span>Orders</span>
-        </a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('index.php/customers'); ?>">
+                <span>Customers</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('index.php/orders'); ?>">
+                <span>Orders</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span>Reports</span>
+            </a>
+        </li>
+
+    <?php elseif($this->session->userdata('role_id') == 2): ?>
+        <!-- SALES -->
+
+        <li class="nav-item">
+            <a class="nav-link" href="<?= base_url('index.php/orders'); ?>">
+                <span>Orders</span>
+            </a>
+        </li>
+
+    <?php elseif($this->session->userdata('role_id') == 3): ?>
+        <!-- MANAGER -->
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <span>Reports</span>
+            </a>
+        </li>
+
+    <?php endif; ?>
 
     <hr class="sidebar-divider">
 

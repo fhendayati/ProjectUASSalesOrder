@@ -12,28 +12,47 @@
 
                 <div class="card-body">
 
+                <a href="<?= base_url('index.php/products/add'); ?>" class="btn btn-primary mb-3"> 
+                    <i class="fas fa-plus"></i>
+                    Add Product
+                </a>
+
                     <table class="table table-bordered">
 
                         <thead>
                             <tr align="center">
-                                <th>ID</th>
+                                <th>No</th>
                                 <th>Code</th>
                                 <th>Product Name</th>
                                 <th>Price</th>
                                 <th>Stock</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
 
+                        <?php $no = 1; ?>
+
                         <?php foreach($products as $product): ?>
 
                             <tr>
-                                <td align="center"><?= $product->id; ?></td>
+                                <td align="center"><?= $no++; ?></td>
                                 <td align="center"><?= $product->product_code; ?></td>
                                 <td><?= $product->product_name; ?></td>
                                 <td align="right"><?= number_format($product->price); ?></td>
                                 <td align="center"><?= $product->stock; ?></td>
+                                <td align="center">
+                                    <a href="<?= base_url('index.php/products/edit/'.$product->id); ?>"
+                                    class="btn btn-warning btn-sm mr-1">
+                                    <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="#"
+                                    class="btn btn-danger btn-sm btn-delete"
+                                    data-url="<?= base_url('index.php/products/delete/'.$product->id); ?>">
+                                    <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
                             </tr>
 
                         <?php endforeach; ?>

@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class product_model extends CI_Model
+class customer_model extends CI_Model
 {
-    private $table = 'products';
+    private $table = 'customers';
 
     public function getAll()
     {
@@ -36,13 +36,5 @@ class product_model extends CI_Model
                     ->where('id', $id)
                     ->delete($this->table);
     }
-
-    public function updateStock($id, $stock)
-    {
-        $this->db->where('id', $id);
-
-        return $this->db->update('products', [
-            'stock' => $stock
-        ]);
-    }
 }
+   
