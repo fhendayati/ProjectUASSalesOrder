@@ -36,6 +36,7 @@ class orders extends CI_Controller
             );
         }
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('orders/index', $data);
@@ -44,53 +45,107 @@ class orders extends CI_Controller
 
     public function add()
     {
-        if ($this->input->post())
+        if($this->session->userdata('role_id') != 2)
         {
-            $product = $this->product_model->getById(
-                $this->input->post('product_id')
-            );
+            redirect('orders');
+        }
 
-            $qty = $this->input->post('qty');
+        if($this->input->post())
+        {
+            $product_ids =
+                $this->input->post('product_id');
 
-            if($qty > $product->stock)
+            $qtys =
+                $this->input->post('qty');
+
+            $total_price = 0;
+
+            // CEK STOCK DAN HITUNG TOTAL
+
+            foreach($product_ids as $key => $product_id)
             {
-                $this->session->set_flashdata(
-                    'error',
-                    'Stock tidak mencukupi!'
-                );
+                $product =
+                    $this->product_model
+                        ->getById($product_id);
 
-                redirect('orders/add');
+                $qty =
+                    $qtys[$key];
+
+                if($qty > $product->stock)
+                {
+                    $this->session->set_flashdata(
+                        'error',
+                        'Insufficient stock for '.$product->product_name
+                    );
+
+                    redirect('orders/add');
+                }
+
+                $total_price +=
+                    $product->price * $qty;
             }
 
-            $subtotal = $product->price * $qty;
+            // SIMPAN ORDER
 
             $orderData = [
-                'order_date'  => $this->input->post('order_date'),
-                'customer_id' => $this->input->post('customer_id'),
-                'user_id'     => $this->session->userdata('id'),
-                'total_price' => $subtotal,
-                'status'      => 'draft',
-                'created_at'  => date('Y-m-d H:i:s')
+
+                'order_date'  =>
+                    $this->input->post('order_date'),
+
+                'customer_id' =>
+                    $this->input->post('customer_id'),
+
+                'user_id' =>
+                    $this->session->userdata('id'),
+
+                'total_price' =>
+                    $total_price,
+
+                'status' =>
+                    'draft',
+
+                'created_at' =>
+                    date('Y-m-d H:i:s')
             ];
 
-            $orderId = $this->order_model->insertOrder($orderData);
+            $orderId =
+                $this->order_model
+                    ->insertOrder(
+                        $orderData
+                    );
 
-            $detailData = [
-                'order_id'   => $orderId,
-                'product_id' => $product->id,
-                'qty'        => $qty,
-                'price'      => $product->price,
-                'subtotal'   => $subtotal
-            ];
+            // SIMPAN DETAIL PRODUK
 
-            $this->order_model->insertDetail($detailData);
+            foreach($product_ids as $key => $product_id)
+            {
+                $product =
+                    $this->product_model
+                        ->getById($product_id);
 
-            $newStock = $product->stock - $qty;
+                $qty =
+                    $qtys[$key];
 
-            $this->product_model->updateStock(
-                $product->id,
-                $newStock
-            );
+                $subtotal =
+                    $product->price * $qty;
+
+                $detailData = [
+
+                    'order_id'   => $orderId,
+
+                    'product_id' => $product_id,
+
+                    'qty'        => $qty,
+
+                    'price'      => $product->price,
+
+                    'subtotal'   => $subtotal
+                ];
+
+                $this->order_model
+                    ->insertDetail(
+                        $detailData
+                    );
+            }
 
             $this->session->set_flashdata(
                 'success',
@@ -100,9 +155,13 @@ class orders extends CI_Controller
             redirect('orders');
         }
 
-        $data['customers'] = $this->customer_model->getAll();
-        $data['products']  = $this->product_model->getAll();
+        $data['customers'] =
+            $this->customer_model->getAll();
 
+        $data['products'] =
+            $this->product_model->getAll();
+
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('orders/add', $data);
@@ -111,7 +170,34 @@ class orders extends CI_Controller
 
     public function update_status($id, $status)
     {
+        if($this->session->userdata('role_id') != 1)
+        {
+            redirect('orders');
+        }
+        
+        // Jika status menjadi selesai
+        if($status == 'selesai')
+        {
+            $details = $this->order_model->getOrderDetails($id);
+
+            foreach($details as $detail)
+            {
+                $product = $this->product_model->getById(
+                    $detail->product_id
+                );
+
+                $newStock =
+                    $product->stock - $detail->qty;
+
+                $this->product_model->updateStock(
+                    $product->id,
+                    $newStock
+                );
+            }
+        }
+
         $this->db->where('id', $id);
+
         $this->db->update('orders', [
             'status' => $status
         ]);
@@ -130,9 +216,106 @@ class orders extends CI_Controller
 
         $data['details'] = $this->order_model->getOrderDetails($id);
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('orders/detail', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function edit($id)
+    {
+        if($this->session->userdata('role_id') != 2)
+        {
+            redirect('orders');
+        }
+
+        $order = $this->order_model->getOrderById($id);
+
+        if(
+            $order->user_id !=
+            $this->session->userdata('id')
+        )
+        {
+            redirect('orders');
+        }
+
+        if(!$order || $order->status != 'draft')
+        {
+            redirect('orders');
+        }
+
+        if($this->input->post())
+        {
+            $product_ids = $this->input->post('product_id');
+            $qtys        = $this->input->post('qty');
+
+            $total = 0;
+
+            foreach($product_ids as $key => $product_id)
+            {
+                $product = $this->product_model->getById(
+                    $product_id
+                );
+
+                $subtotal =
+                    $product->price * $qtys[$key];
+
+                $total += $subtotal;
+            }
+
+            $this->order_model->updateOrder(
+                $id,
+                [
+                    'order_date'  => $this->input->post('order_date'),
+                    'customer_id' => $this->input->post('customer_id'),
+                    'total_price' => $total
+                ]
+            );
+
+            $this->order_model->deleteDetails($id);
+
+            foreach($product_ids as $key => $product_id)
+            {
+                $product = $this->product_model->getById(
+                    $product_id
+                );
+
+                $subtotal =
+                    $product->price * $qtys[$key];
+
+                $this->order_model->insertDetail([
+                    'order_id'   => $id,
+                    'product_id' => $product_id,
+                    'qty'        => $qtys[$key],
+                    'price'      => $product->price,
+                    'subtotal'   => $subtotal
+                ]);
+            }
+
+            $this->session->set_flashdata(
+                'success',
+                'Order updated successfully!'
+            );
+
+            redirect('orders');
+        }
+
+        $data['order'] = $order;
+
+        $data['details'] =
+            $this->order_model->getOrderDetails($id);
+
+        $data['customers'] =
+            $this->customer_model->getAll();
+
+        $data['products'] =
+            $this->product_model->getAll();
+
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('orders/edit', $data);
         $this->load->view('templates/footer');
     }
 }

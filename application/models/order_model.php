@@ -13,7 +13,7 @@ class order_model extends CI_Model
         $this->db->join('customers', 'customers.id = orders.customer_id');
         $this->db->join('users', 'users.id = orders.user_id');
 
-        $this->db->order_by('orders.id', 'ASC');
+        $this->db->order_by('orders.order_date', 'ASC');
 
         return $this->db->get()->result();
     }
@@ -28,7 +28,7 @@ class order_model extends CI_Model
 
         $this->db->where('orders.user_id', $user_id);
 
-        $this->db->order_by('orders.id', 'ASC');
+        $this->db->order_by('orders.order_date', 'ASC');
 
         return $this->db->get()->result();
     }
@@ -90,5 +90,27 @@ class order_model extends CI_Model
         );
 
         return $this->db->get()->result();
+    }
+
+    public function updateOrder($id, $data)
+    {
+        $this->db->where('id', $id);
+
+        return $this->db->update(
+            'orders',
+            $data
+        );
+    }
+
+    public function deleteDetails($order_id)
+    {
+        $this->db->where(
+            'order_id',
+            $order_id
+        );
+
+        return $this->db->delete(
+            'order_details'
+        );
     }
 }

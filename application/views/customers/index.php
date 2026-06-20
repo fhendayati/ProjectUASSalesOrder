@@ -5,7 +5,7 @@
         <div class="container-fluid">
 
             <h1 class="h3 mb-4 text-gray-800">
-                Customers
+                Data Customers
             </h1>
 
             <div class="card shadow mb-4">
@@ -20,11 +20,12 @@
 
                     </a>
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="dataTable">
 
                         <thead>
                             <tr align="center">
-                                <th>ID</th>
+                                <th>No</th>
+                                <th>Customer ID</th>
                                 <th>Customer Name</th>
                                 <th>Address</th>
                                 <th>Phone</th>
@@ -42,6 +43,15 @@
 
                                 <td align="center">
                                     <?= $no++; ?></td>
+                                </td>
+
+                                <td align="center">
+                                    CST-<?= str_pad(
+                                        $customer->id,
+                                        3,
+                                        '0',
+                                        STR_PAD_LEFT
+                                    ); ?>
                                 </td>
 
                                 <td>

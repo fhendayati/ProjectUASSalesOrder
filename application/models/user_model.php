@@ -11,4 +11,11 @@ class User_model extends CI_Model {
                     ->row();
     }
 
+    public function getById($id)
+    {
+        return $this->db
+            ->get_where('users', ['id' => $id])
+            ->row();
+    }
+
 }

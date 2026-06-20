@@ -5,7 +5,7 @@
         <div class="container-fluid">
 
             <h1 class="h3 mb-4 text-gray-800">
-                Products
+                Data Products
             </h1>
 
             <div class="card shadow mb-4">
@@ -17,14 +17,14 @@
                     Add Product
                 </a>
 
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="dataTable">
 
                         <thead>
                             <tr align="center">
                                 <th>No</th>
-                                <th>Code</th>
+                                <th>Product Code</th>
                                 <th>Product Name</th>
-                                <th>Price</th>
+                                <th>Price (Rp)</th>
                                 <th>Stock</th>
                                 <th>Action</th>
                             </tr>

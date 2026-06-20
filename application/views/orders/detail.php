@@ -10,70 +10,115 @@
 
             <div class="card shadow mb-4">
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
 
-                    <p><strong>Customer :</strong> <?= $order->customer_name; ?></p>
+                            <table class="table table-borderless">
 
-                    <p><strong>Sales :</strong> <?= $order->sales_name; ?></p>
+                                <tr>
+                                    <td width="200"><strong>Order No</strong></td>
+                                    <td width="20">:</td>
+                                    <td>
+                                        <?= 'SO-' . date('Ym', strtotime($order->order_date)) . '-' . str_pad($order->id, 4, '0', STR_PAD_LEFT); ?>
+                                    </td>
+                                </tr>
 
-                    <p><strong>Date :</strong> <?= $order->order_date; ?></p>
+                                <tr>
+                                    <td><strong>Customer</strong></td>
+                                    <td>:</td>
+                                    <td><?= $order->customer_name; ?></td>
+                                </tr>
 
-                    <p><strong>Status :</strong> <?= ucfirst($order->status); ?></p>
+                                <tr>
+                                    <td><strong>Sales Person</strong></td>
+                                    <td>:</td>
+                                    <td><?= $order->sales_name; ?></td>
+                                </tr>
 
-                    <p><strong>Total :</strong> Rp <?= number_format($order->total_price); ?></p>
+                            </table>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <table class="table table-borderless">
+
+                                <tr>
+                                    <td><strong>Date</strong></td>
+                                    <td>:</td>
+                                    <td><?= date('d F Y', strtotime($order->order_date)); ?></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Status</strong></td>
+                                    <td>:</td>
+                                    <td><?= ucfirst($order->status); ?></td>
+                                </tr>
+
+                                <tr>
+                                    <td><strong>Total</strong></td>
+                                    <td>:</td>
+                                    <td>Rp <?= number_format($order->total_price); ?></td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow">
+                        <div class="card-body">
+
+                            <table class="table table-bordered">
+
+                                <thead>
+                                    <tr align="center">
+                                        <th>Product</th>
+                                        <th>Qty</th>
+                                        <th>Price (Rp)</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <?php foreach($details as $detail): ?>
+
+                                    <tr>
+
+                                        <td><?= $detail->product_name; ?></td>
+
+                                        <td align="center">
+                                            <?= $detail->qty; ?>
+                                        </td>
+
+                                        <td align="right">
+                                            <?= number_format($detail->price); ?>
+                                        </td>
+
+                                        <td align="right">
+                                            <?= number_format($detail->subtotal); ?>
+                                        </td>
+
+                                    </tr>
+
+                                <?php endforeach; ?>
+
+                                </tbody>
+
+                            </table>
+
+                            <a href="<?= base_url('index.php/orders'); ?>"
+                                class="btn btn-secondary">
+
+                                    Back
+
+                            </a>
+
+                        </div>
+                        
+                    </div>
 
                 </div>
-            </div>
 
-            <div class="card shadow">
-                <div class="card-body">
-
-                    <table class="table table-bordered">
-
-                        <thead>
-                            <tr align="center">
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Subtotal</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-
-                        <?php foreach($details as $detail): ?>
-
-                            <tr>
-
-                                <td><?= $detail->product_name; ?></td>
-
-                                <td align="center">
-                                    <?= $detail->qty; ?>
-                                </td>
-
-                                <td align="right">
-                                    <?= number_format($detail->price); ?>
-                                </td>
-
-                                <td align="right">
-                                    <?= number_format($detail->subtotal); ?>
-                                </td>
-
-                            </tr>
-
-                        <?php endforeach; ?>
-
-                        </tbody>
-
-                    </table>
-
-                    <a href="<?= base_url('index.php/orders'); ?>"
-                       class="btn btn-secondary">
-
-                        Back
-
-                    </a>
-
-                </div>
             </div>
 
         </div>

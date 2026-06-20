@@ -24,6 +24,7 @@ class products extends CI_Controller
     {
         $data['products'] = $this->product_model->getAll();
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('products/index', $data);
@@ -51,6 +52,7 @@ class products extends CI_Controller
             redirect('products');
         }
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('products/add');
@@ -86,6 +88,7 @@ class products extends CI_Controller
 
         $data['product'] = $product;
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('products/edit', $data);

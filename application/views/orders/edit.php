@@ -5,7 +5,7 @@
 <div class="container-fluid">
 
 <h1 class="h3 mb-4 text-gray-800">
-    Add Order
+    Update Order
 </h1>
 
 <div class="card shadow">
@@ -18,9 +18,9 @@
     <label>Order Date</label>
 
     <input type="date"
-           name="order_date"
-           class="form-control"
-           value="<?= date('Y-m-d'); ?>">
+        name="order_date"
+        class="form-control"
+        value="<?= $order->order_date; ?>">
 </div>
 
 <div class="form-group">
@@ -29,13 +29,20 @@
     <select name="customer_id"
             class="form-control">
 
-        <?php foreach($customers as $customer): ?>
+    <?php foreach($customers as $customer): ?>
 
-            <option value="<?= $customer->id; ?>">
-                <?= $customer->customer_name; ?>
-            </option>
+    <option
+    value="<?= $customer->id; ?>"
 
-        <?php endforeach; ?>
+    <?= ($customer->id == $order->customer_id)
+    ? 'selected'
+    : ''; ?>>
+
+    <?= $customer->customer_name; ?>
+
+    </option>
+
+    <?php endforeach; ?>
 
     </select>
 </div>
@@ -43,6 +50,8 @@
 <label>Products</label>
 
 <div id="product-area">
+
+<?php foreach($details as $detail): ?>
 
     <div class="row product-row mb-3">
 
@@ -54,11 +63,15 @@
 
                 <?php foreach($products as $product): ?>
 
-                    <option value="<?= $product->id; ?>">
+                <option
+                    value="<?= $product->id; ?>"
+                    <?= ($product->id == $detail->product_id)
+                        ? 'selected'
+                        : ''; ?>>
 
-                        <?= $product->product_name; ?>
+                    <?= $product->product_name; ?>
 
-                    </option>
+                </option>
 
                 <?php endforeach; ?>
 
@@ -72,6 +85,7 @@
                 type="number"
                 name="qty[]"
                 class="form-control"
+                value="<?= $detail->qty; ?>"
                 min="1"
                 required>
 
@@ -90,6 +104,8 @@
         </div>
 
     </div>
+
+<?php endforeach; ?>
 
 </div>
 

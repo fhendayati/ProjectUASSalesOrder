@@ -41,8 +41,9 @@ class product_model extends CI_Model
     {
         $this->db->where('id', $id);
 
-        return $this->db->update('products', [
-            'stock' => $stock
-        ]);
+        return $this->db->update(
+            'products',
+            ['stock' => $stock]
+        );
     }
 }

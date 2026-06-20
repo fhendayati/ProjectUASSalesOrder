@@ -5,30 +5,34 @@
         <div class="container-fluid">
 
             <h1 class="h3 mb-4 text-gray-800">
-                Orders
+                Data Orders
             </h1>
 
             <div class="card shadow">
 
                 <div class="card-body">
 
+                    <?php if($this->session->userdata('role_id') == 2): ?>
+
                     <a href="<?= base_url('index.php/orders/add'); ?>"
-                       class="btn btn-primary mb-3">
+                    class="btn btn-primary mb-3">
 
                         <i class="fas fa-plus"></i>
                         Add Order
 
                     </a>
 
-                    <table class="table table-bordered">
+                    <?php endif; ?>
+
+                    <table class="table table-bordered" id="dataTable">
 
                         <thead>
                             <tr align="center">
-                                <th>ID</th>
+                                <th>No</th>
                                 <th>Date</th>
                                 <th>Customer</th>
-                                <th>Sales Name</th>
-                                <th>Total</th>
+                                <th>Sales Person Name</th>
+                                <th>Total (Rp)</th>
                                 <th>Status</th>
                                 <th width="180">Action</th>
                                 
@@ -85,7 +89,7 @@
                                 </td>
 
                                 <td align="center">
-                                    
+
                                     <a href="<?= base_url('index.php/orders/detail/'.$order->id); ?>"
                                     class="btn btn-info btn-sm">
 
@@ -93,42 +97,62 @@
 
                                     </a>
 
-                                <?php if($order->status == 'draft'): ?>
+                                    <?php if(
+                                        $this->session->userdata('role_id') == 2
+                                        &&
+                                        $order->status == 'draft'
+                                    ): ?>
 
-                                    <a href="#"
-                                    class="btn btn-primary btn-sm btn-status"
-                                    data-url="<?= base_url('index.php/orders/update_status/'.$order->id.'/dikirim'); ?>"
-                                    data-title="Kirim Order?"
-                                    data-text="Order akan diubah menjadi Dikirim">
-                                    Kirim
+                                    <a href="<?= base_url('index.php/orders/edit/'.$order->id); ?>"
+                                    class="btn btn-warning btn-sm">
+
+                                        <i class="fas fa-edit"></i>
+
                                     </a>
 
-                                    <a href="#"
-                                    class="btn btn-danger btn-sm btn-status"
-                                    data-url="<?= base_url('index.php/orders/update_status/'.$order->id.'/dibatalkan'); ?>"
-                                    data-title="Batalkan Order?"
-                                    data-text="Order akan dibatalkan">
-                                    Batal
-                                    </a>
+                                    <?php endif; ?>
 
-                                <?php elseif($order->status == 'dikirim'): ?>
+                                    <?php if($this->session->userdata('role_id') == 1): ?>
 
-                                <a href="#"
-                                class="btn btn-success btn-sm btn-status"
-                                data-url="<?= base_url('index.php/orders/update_status/'.$order->id.'/selesai'); ?>"
-                                data-title="Selesaikan Order?"
-                                data-text="Order akan ditandai selesai">
-                                Selesai
-                                </a>
+                                        <?php if($order->status == 'draft'): ?>
 
-                                <?php else: ?>
+                                            <a href="#"
+                                            class="btn btn-primary btn-sm btn-status"
+                                            data-url="<?= base_url('index.php/orders/update_status/'.$order->id.'/dikirim'); ?>"
+                                            data-title="Send Order?"
+                                            data-text="Order will be changed to Dikirim">
 
-                                    -
+                                                Kirim
 
-                                <?php endif; ?>
+                                            </a>
+
+                                            <a href="#"
+                                            class="btn btn-danger btn-sm btn-status"
+                                            data-url="<?= base_url('index.php/orders/update_status/'.$order->id.'/dibatalkan'); ?>"
+                                            data-title="Cancel Order?"
+                                            data-text="Order will be changed to Dibatalkan">
+
+                                                Batal
+
+                                            </a>
+
+                                        <?php elseif($order->status == 'dikirim'): ?>
+
+                                            <a href="#"
+                                            class="btn btn-success btn-sm btn-status"
+                                            data-url="<?= base_url('index.php/orders/update_status/'.$order->id.'/selesai'); ?>"
+                                            data-title="Complete the Order?"
+                                            data-text="Order will be changed to Selesai">
+
+                                                Selesai
+
+                                            </a>
+
+                                        <?php endif; ?>
+
+                                    <?php endif; ?>
 
                                 </td>
-
                             </tr>
 
                         <?php endforeach; ?>

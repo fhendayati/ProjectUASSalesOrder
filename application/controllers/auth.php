@@ -22,20 +22,47 @@ class auth extends CI_Controller {
 
             if ($user) {
                 if ($password == $user->password) {
+
+                    $this->db->where('id', $user->id);
+                    $this->db->update('users', [
+                        'last_login' => date('Y-m-d H:i:s')
+                    ]);
+
                     $data_session = array(
-                        'id'       => $user->id,
-                        'name'     => $user->name,
-                        'username' => $user->username,
-                        'role_id'  => $user->role_id,
-                        'logged_in' => TRUE
+                        'id'         => $user->id,
+                        'name'       => $user->name,
+                        'username'   => $user->username,
+                        'role_id'    => $user->role_id,
+                        'photo'      => $user->photo,
+                        'last_login' => date('Y-m-d H:i:s'),
+                        'logged_in'  => TRUE
                     );
+
                     $this->session->set_userdata($data_session);
+
+                    $this->session->set_flashdata(
+                        'login_success',
+                        'Welcome, '.$user->name.'!'
+                    );
+
                     redirect('dashboard');
+                    
                 } else {
-                    echo "Password Salah!";
+                    $this->session->set_flashdata(
+                        'error',
+                        'The password you entered is incorrect!'
+                    );
+
+                    redirect('auth');
+
                 }
             } else {
-                echo "User tidak ditemukan!";
+                    $this->session->set_flashdata(
+                        'error',
+                        'Username not found!'
+                    );
+
+                redirect('auth');
             }
             
             return;

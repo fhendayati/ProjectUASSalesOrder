@@ -26,6 +26,7 @@ class customers extends CI_Controller
     {
         $data['customers'] = $this->customer_model->getAll();
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('customers/index', $data);
@@ -53,6 +54,7 @@ class customers extends CI_Controller
             redirect('customers');
         }
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('customers/add');
@@ -88,6 +90,7 @@ class customers extends CI_Controller
 
         $data['customer'] = $customer;
 
+        $this->load->view('templates/topbar');
         $this->load->view('templates/header');
         $this->load->view('templates/sidebar');
         $this->load->view('customers/edit', $data);

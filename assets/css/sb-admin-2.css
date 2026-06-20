@@ -9794,10 +9794,12 @@ a:focus {
 
 #wrapper {
   display: flex;
+  /* margin-top: -1000px; */
 }
 
 #wrapper #content-wrapper {
   background-color: #f8f9fc;
+  margin-top: 1000px;
   width: 100%;
   overflow-x: hidden;
 }
@@ -10169,6 +10171,7 @@ a:focus {
 
 .topbar {
   height: 4.375rem;
+  margin: 0px;
 }
 
 .topbar #sidebarToggleTop {
