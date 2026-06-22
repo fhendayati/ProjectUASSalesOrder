@@ -86,6 +86,11 @@ class report_model extends CI_Model
             'orders.user_id'
         );
 
+        $this->db->order_by(
+            'total_penjualan',
+            'DESC'
+        );
+
         return $this->db->get()->result();
     }
 
@@ -124,8 +129,80 @@ class report_model extends CI_Model
             'products.id'
         );
 
+        $this->db->order_by(
+            'total_qty',
+            'DESC'
+        );
+
         return $this->db->get()->result();
 
+    }
+
+    public function getOverallReport()
+    {
+        $this->db->select('
+            orders.*,
+            customers.customer_name,
+            users.name as sales_name
+        ');
+
+        $this->db->from('orders');
+
+        $this->db->join(
+            'customers',
+            'customers.id = orders.customer_id'
+        );
+
+        $this->db->join(
+            'users',
+            'users.id = orders.user_id'
+        );
+
+        $this->db->where(
+            'orders.status',
+            'selesai'
+        );
+
+        $this->db->order_by(
+            'orders.order_date',
+            'DESC'
+        );
+
+        return $this->db->get()->result();
+    }
+
+    public function getOverallSummary()
+    {
+        $summary = [];
+
+        $summary['total_orders'] =
+            $this->db
+                ->where('status','selesai')
+                ->count_all_results('orders');
+
+        $summary['total_customers'] =
+            $this->db
+                ->count_all('customers');
+
+        $summary['total_sales_person'] =
+            $this->db
+                ->where('role_id',2)
+                ->count_all_results('users');
+
+        $this->db->select_sum('total_price');
+
+        $this->db->where(
+            'status',
+            'selesai'
+        );
+
+        $summary['total_sales'] =
+            $this->db
+                ->get('orders')
+                ->row()
+                ->total_price;
+
+        return $summary;
     }
 
 }

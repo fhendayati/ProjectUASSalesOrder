@@ -81,6 +81,13 @@ class reports extends CI_Controller
                 $data['total_sales'] +=
                     $row->total_penjualan;
             }
+
+            $data['top_sales'] = null;
+
+            if(!empty($data['reports']))
+            {
+                $data['top_sales'] = $data['reports'][0];
+            }
         }
 
         $this->load->view('templates/topbar');
@@ -137,6 +144,13 @@ class reports extends CI_Controller
                 $data['total_sales'] +=
                     $row->total_penjualan;
             }
+
+            $data['best_product'] = null;
+
+            if(!empty($data['reports']))
+            {
+                $data['best_product'] = $data['reports'][0];
+            }
         }
 
         $this->load->view('templates/topbar');
@@ -172,6 +186,39 @@ class reports extends CI_Controller
             $data
         );
 
+    }
+
+    public function overall()
+    {
+        $data['reports'] =
+            $this->report_model
+                ->getOverallReport();
+
+        $data['summary'] =
+            $this->report_model
+                ->getOverallSummary();
+
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/header');
+        $this->load->view('templates/sidebar');
+        $this->load->view('reports/overall/index', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function printOverall()
+    {
+        $data['reports'] =
+            $this->report_model
+                ->getOverallReport();
+
+        $data['summary'] =
+            $this->report_model
+                ->getOverallSummary();
+
+        $this->load->view(
+            'reports/print_overall',
+            $data
+        );
     }
 
 }

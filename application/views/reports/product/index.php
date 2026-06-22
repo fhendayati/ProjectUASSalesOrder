@@ -5,7 +5,7 @@
     <div class="container-fluid">
 
         <h1 class="h3 mb-4 text-gray-800">
-            Report Per Product
+            Product Report
         </h1>
 
         <div class="card shadow mb-4">
@@ -18,7 +18,7 @@
 
                         <div class="col-md-4">
 
-                            <label>Select Month</label>
+                            <label>Select Period</label>
 
                             <input type="month"
                                    name="periode"
@@ -34,7 +34,7 @@
 
                             <button type="submit"
                                     class="btn btn-primary btn-block">
-                                Show
+                                Show Report
                             </button>
 
                         </div>
@@ -48,6 +48,8 @@
                             <a href="<?= base_url('index.php/reports/printProduct?periode='.$this->input->get('periode')); ?>"
                                target="_blank"
                                class="btn btn-success btn-block">
+
+                               <i class="fas fa-print"></i>
 
                                 Print PDF
 
@@ -139,9 +141,60 @@
 
         </div>
 
+        <?php if($this->input->get('periode') && $best_product): ?>
+
+        <div class="card border-left-warning shadow mt-3">
+
+            <div class="card-body">
+
+                <div class="row align-items-center">
+
+                    <div class="col">
+
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+
+                            Best Selling Product
+
+                        </div>
+
+                        <div class="h5 mb-1 font-weight-bold text-gray-800">
+
+                            <?= $best_product->product_name; ?>
+
+                        </div>
+
+                        <div class="text-muted">
+
+                            <?= $best_product->total_qty; ?> Units Sold
+
+                        </div>
+
+                        <div class="mt-2 font-weight-bold text-success">
+
+                            Rp <?= number_format(
+                                $best_product->total_penjualan
+                            ); ?>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-auto">
+
+                        <i class="fas fa-award fa-3x text-warning"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <?php endif; ?>
+
     </div>
 
 </div>
-```
 
 </div>

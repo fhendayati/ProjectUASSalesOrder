@@ -12,9 +12,9 @@ class orders extends CI_Controller
         }
 
         // Manager tidak boleh masuk Orders
-        if ($this->session->userdata('role_id') == 3) {
-            redirect('dashboard');
-        }
+        // if ($this->session->userdata('role_id') == 3) {
+        //     redirect('dashboard');
+        // }
 
         $this->load->model('order_model');
         $this->load->model('customer_model');
@@ -23,17 +23,32 @@ class orders extends CI_Controller
 
     public function index()
     {
-        if ($this->session->userdata('role_id') == 1)
+        $status = $this->input->get('status');
+
+        $data['status'] = $status;
+
+        $role_id = $this->session->userdata('role_id');
+
+        if($role_id == 1)
         {
-            // Admin melihat semua order
-            $data['orders'] = $this->order_model->getAll();
+            // Admin
+            $data['orders'] =
+                $this->order_model->getAll($status);
+        }
+        elseif($role_id == 2)
+        {
+            // Sales
+            $data['orders'] =
+                $this->order_model->getByUser(
+                    $this->session->userdata('id'),
+                    $status
+                );
         }
         else
         {
-            // Sales melihat order miliknya sendiri
-            $data['orders'] = $this->order_model->getByUser(
-                $this->session->userdata('id')
-            );
+            // Manager
+            $data['orders'] =
+                $this->order_model->getAll($status);
         }
 
         $this->load->view('templates/topbar');

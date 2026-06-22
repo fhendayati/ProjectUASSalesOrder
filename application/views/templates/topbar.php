@@ -108,7 +108,7 @@
                 <a class="dropdown-item"
                 href="<?= base_url('index.php/profile'); ?>">
 
-                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-user fa-sm fa-fw mr-2"></i>
                     Profile
 
                 </a>
@@ -126,7 +126,7 @@
                 <a class="dropdown-item logout-btn"
                 href="<?= base_url('index.php/profile'); ?>">
 
-                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                     Logout
 
                 </a>

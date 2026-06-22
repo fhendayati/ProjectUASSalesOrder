@@ -65,6 +65,13 @@
 <?php elseif($this->session->userdata('role_id') == 3): ?>
     <!-- MANAGER -->
 
+    <li class="nav-item <?= $this->uri->segment(1) == 'orders' ? 'active' : ''; ?>">
+        <a class="nav-link" href="<?= base_url('index.php/orders'); ?>">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Orders</span>
+        </a>
+    </li>
+
     <li class="nav-item <?= $this->uri->segment(1) == 'reports' ? 'active' : ''; ?>">
 
         <a class="nav-link collapsed"
@@ -86,18 +93,10 @@
             <div class="bg-white py-2 collapse-inner rounded">
 
                 <a class="collapse-item"
-                href="<?= base_url('index.php/reports'); ?>">
-
-                    <i class="fas fa-calendar-alt mr-2"></i>
-                    Report Per Period
-
-                </a>
-
-                <a class="collapse-item"
                 href="<?= base_url('index.php/reports/sales'); ?>">
 
                     <i class="fas fa-user-tie mr-2"></i>
-                    Report Per Sales Person
+                    Sales Report
 
                 </a>
 
@@ -105,7 +104,23 @@
                 href="<?= base_url('index.php/reports/product'); ?>">
 
                     <i class="fas fa-box-open mr-2"></i>
-                    Report Per Product
+                    Product Report
+
+                </a>
+
+                <a class="collapse-item"
+                href="<?= base_url('index.php/reports'); ?>">
+
+                    <i class="fas fa-calendar-alt mr-2"></i>
+                    Monthly Sales Report
+
+                </a>
+
+                <a class="collapse-item"
+                href="<?= base_url('index.php/reports/overall'); ?>">
+
+                    <i class="fas fa-file-invoice-dollar mr-2"></i>
+                    Overall Sales Report
 
                 </a>
 

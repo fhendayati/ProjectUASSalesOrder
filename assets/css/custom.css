@@ -182,6 +182,7 @@ h1.h3{
     color:#0f2347;
 }
 
+
 /* =========================
    TABLE
 ========================= */
@@ -603,4 +604,21 @@ h1.h3{
 .swal2-icon.swal2-warning{
     border-color: #f0ad4e !important;
     color: #f0ad4e !important;
+}
+
+.filter-status{
+    width: 180px !important;
+    background: #b8d0eb !important;
+    color: rgb(0, 0, 0) !important;
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+.filter-status:focus{
+    box-shadow: 0 0 10px rgba(78,115,223,0.4);
+}
+
+.filter-status option{
+    background: white;
+    color: #333;
 }

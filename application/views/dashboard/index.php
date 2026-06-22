@@ -64,6 +64,7 @@
             <div class="row">
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/products'); ?>">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
 
@@ -87,9 +88,11 @@
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/customers'); ?>">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
 
@@ -97,7 +100,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-success text-uppercase mb-1">
                                         Total Customers
                                     </h6>
 
@@ -107,15 +110,17 @@
 
                                 </div>
 
-                                <i class="fas fa-users fa-2x text-primary"></i>
+                                <i class="fas fa-users fa-2x text-success"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders'); ?>">
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
 
@@ -123,7 +128,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-warning text-uppercase mb-1">
                                         Total Orders
                                     </h6>
 
@@ -133,15 +138,17 @@
 
                                 </div>
 
-                                <i class="fas fa-shopping-cart fa-2x text-primary"></i>
+                                <i class="fas fa-shopping-cart fa-2x text-warning"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/sales'); ?>">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
 
@@ -149,7 +156,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-info text-uppercase mb-1">
                                         Total Sales Person
                                     </h6>
 
@@ -159,12 +166,13 @@
 
                                 </div>
 
-                                <i class="fas fa-user-tie fa-2x text-primary"></i>
+                                <i class="fas fa-user-tie fa-2x text-info"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
             </div>
@@ -193,7 +201,7 @@
                                     <tr align="center">
                                         <th>Date</th>
                                         <th>Customer</th>
-                                        <th>Sales Person Name</th>
+                                        <th>Sales Name</th>
                                         <th>Total (Rp)</th>
                                         <th>Status</th>
                                     </tr>
@@ -300,6 +308,7 @@
             <div class="row">
 
                 <div class="col-xl-4 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders'); ?>">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
 
@@ -323,9 +332,11 @@
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-4 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders?status=draft'); ?>">
                     <div class="card border-left-secondary shadow h-100 py-2">
                         <div class="card-body">
 
@@ -333,7 +344,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-secondary text-uppercase mb-1">
                                        Drafts
                                     </h6>
 
@@ -343,15 +354,17 @@
 
                                 </div>
 
-                                <i class="fas fa-file-alt fa-2x text-primary"></i>
+                                <i class="fas fa-file-alt fa-2x text-secondary"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-4 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders?status=dikirim'); ?>">
                     <div class="card border-left-info shadow h-100 py-2">
                         <div class="card-body">
 
@@ -359,7 +372,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-info text-uppercase mb-1">
                                         Sent
                                     </h6>
 
@@ -369,15 +382,17 @@
 
                                 </div>
 
-                                <i class="fas fa-truck fa-2x text-primary"></i>
+                                <i class="fas fa-truck fa-2x text-info"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-4 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders?status=selesai'); ?>">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
 
@@ -385,7 +400,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-success text-uppercase mb-1">
                                         Completed
                                     </h6>
 
@@ -395,15 +410,17 @@
 
                                 </div>
 
-                                <i class="fas fa-check-circle fa-2x text-primary"></i>
+                                <i class="fas fa-check-circle fa-2x text-success"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-4 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders?status=dibatalkan'); ?>">
                     <div class="card border-left-danger shadow h-100 py-2">
                         <div class="card-body">
 
@@ -411,7 +428,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-danger text-uppercase mb-1">
                                         Canceled
                                     </h6>
 
@@ -421,13 +438,15 @@
 
                                 </div>
 
-                                <i class="fas fa-times-circle fa-2x text-primary"></i>
+                                <i class="fas fa-times-circle fa-2x text-danger"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
+                
             </div>
 
             <div class="card shadow mb-4">
@@ -537,6 +556,7 @@
             <div class="row">
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders'); ?>">
                     <div class="card border-left-primary shadow h-100 py-2">
                         <div class="card-body">
 
@@ -560,9 +580,11 @@
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders?status=selesai'); ?>">
                     <div class="card border-left-success shadow h-100 py-2">
                         <div class="card-body">
 
@@ -570,7 +592,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-success text-uppercase mb-1">
                                         Order Completed
                                     </h6>
 
@@ -580,15 +602,17 @@
 
                                 </div>
 
-                                <i class="fas fa-check-circle fa-2x text-primary"></i>
+                                <i class="fas fa-check-circle fa-2x text-success"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/orders?status=dibatalkan'); ?>">
                     <div class="card border-left-danger shadow h-100 py-2">
                         <div class="card-body">
 
@@ -596,7 +620,7 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
+                                    <h6 class="font-weight-bold text-danger text-uppercase mb-1">
                                         Order Cancelled
                                     </h6>
 
@@ -606,14 +630,16 @@
 
                                 </div>
 
-                                <i class="fas fa-times-circle fa-2x text-primary"></i>
+                                <i class="fas fa-times-circle fa-2x text-danger"></i>
 
                             </div>
                         </div>
                     </div>
+                    </a>
                 </div>
 
                 <div class="col-xl-3 col-md-6 mb-4">
+                    <a href="<?= base_url('index.php/reports/overall'); ?>">
                     <div class="card border-left-warning shadow h-100 py-2">
                         <div class="card-body">
 
@@ -621,8 +647,8 @@
 
                                 <div>
 
-                                    <h6 class="font-weight-bold text-primary text-uppercase mb-1">
-                                        Total Sales
+                                    <h6 class="font-weight-bold text-warning text-uppercase mb-1">
+                                        Total Revenue
                                     </h6>
 
                                     <div class="h4 mb-0 font-weight-bold text-gray-800">
@@ -631,12 +657,13 @@
 
                                 </div>
 
-                                <i class="fas fa-money-bill-wave fa-2x text-primary"></i>
+                                <i class="fas fa-money-bill-wave fa-2x text-warning"></i>
 
                             </div>
 
                         </div>
                     </div>
+                    </a>
                 </div>
 
             </div>
@@ -645,11 +672,11 @@
 
                 <div class="card-body">
 
-                    <h5 class="mb-4">
+                    <h5 class="mb-4 font-weight-bold text-primary mb-1">
 
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-chart-line text-primary mr-2"></i>
 
-                        Sales Graph Per Month
+                        Monthly Sales Graph
 
                     </h5>
 
@@ -663,11 +690,11 @@
 
                 <div class="card-body">
 
-                    <h5 class="mb-4">
+                    <h5 class="mb-4 font-weight-bold text-primary mb-1">
 
-                        <i class="fas fa-chart-bar text-primary"></i>
+                        <i class="fas fa-chart-bar text-primary mr-2"></i>
 
-                        Sales Per Sales Person
+                        Sales Performance by Sales Person
 
                     </h5>
 

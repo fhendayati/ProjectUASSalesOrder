@@ -2,55 +2,63 @@
 
 <html>
 <head>
-    <title>Print Report Per Sales Person</title>
+    <title>Print Sales Report</title>
 
 <style>
-    body{
-        font-family: Georgia, "Times New Roman", serif;
-    }
 
-    h3, h4{
-        text-align: center;
-        margin: 5px;
-    }
+*{
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
 
-    p{
-        margin: 5px 0;
-    }
+body{
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 12px;
+}
 
-    table{
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 15px;
-    }
+table{
+    width:100%;
+    border-collapse:collapse;
+}
 
-    table, th, td{
-        border: 1px solid black;
-    }
+table,
+th,
+td{
+    border:1px solid #000;
+}
 
-    th, td{
-        padding: 8px;
-    }
+th{
+    background:#1e3c72;
+    color:white;
+}
 
-    .total{
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 16px;
-    }
+th,
+td{
+    padding:8px;
+}
 
-    @media print{
-        button{
-            display: none;
-        }
-    }
+.total-row td{
+    background:#1e3c72;
+    color:white;
+    font-weight:bold;
+}
+
+.text-right{
+    text-align:right;
+}
+
+.text-center{
+    text-align:center;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<h3>PT MAJU JAYA</h3>
-<h4>SALES REPORTS PER SALES PERSON</h4>
+<h2 align="center">PT MAJU JAYA</h2>
+<h3 align="center">SALES REPORT</h3>
 
                 <?php if(!empty($reports)): ?>
 
@@ -67,6 +75,8 @@
 
                 <?php endif; ?>
 
+<hr>
+
 <p>
     Period :
     <?= $periode; ?>
@@ -75,9 +85,9 @@
 <table>
 
     <thead>
-        <tr>
+        <tr class="total-row">
             <th>No</th>
-            <th>Sales Person Name</th>
+            <th>Sales Name</th>
             <th>Total Order</th>
             <th>Total (Rp)</th>
         </tr>
@@ -108,6 +118,35 @@
 
         <?php endforeach; ?>
 
+        <tr class="total-row">
+
+            <td colspan="2" align="center">
+
+                TOTAL
+
+            </td>
+
+            <td align="center">
+
+                <?=
+                array_sum(
+                    array_column(
+                        $reports,
+                        'total_order'
+                    )
+                );
+                ?>
+
+            </td>
+
+            <td align="right">
+
+                Rp <?= number_format($total_sales); ?>
+
+            </td>
+
+        </tr>
+
     <?php else: ?>
 
         <tr>
@@ -122,16 +161,6 @@
 
 </table>
 
-<div class="total">
-    Total Sales :
-    Rp <?= number_format($total_sales); ?>
-</div>
-
-<div class="total">
-    Total Sales Person :
-    <?= count($reports); ?> Staff
-</div>
-
 <br><br><br>
 
 <p style="text-align:right;">
@@ -141,6 +170,9 @@
 
     <?= $this->session->userdata('name'); ?>
 </p>
+
+<hr>
+
 <script>
     window.print();
 </script>

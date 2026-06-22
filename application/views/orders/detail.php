@@ -30,7 +30,7 @@
                                 </tr>
 
                                 <tr>
-                                    <td><strong>Sales Person</strong></td>
+                                    <td><strong>Sales Name</strong></td>
                                     <td>:</td>
                                     <td><?= $order->sales_name; ?></td>
                                 </tr>
@@ -63,7 +63,7 @@
                             </table>
                         </div>
                     </div>
-                    
+
                     <div class="card shadow">
                         <div class="card-body">
 

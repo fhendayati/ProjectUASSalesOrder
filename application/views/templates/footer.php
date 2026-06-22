@@ -74,11 +74,11 @@ Swal.fire({
 
 $(document).ready(function(){
 
-    $('.btn-delete').on('click', function(e){
+    $(document).on('click', '.btn-delete', function(e){
 
-        e.preventDefault();
-
-        let url = $(this).data('url');
+        let url   = $(this).data('url');
+        let title = $(this).data('title');
+        let text  = $(this).data('text');
 
         Swal.fire({
             title: 'Are you sure?',
@@ -200,15 +200,15 @@ foreach($sales_performance as $row)
 
 <script>
 
+Chart.defaults.font.family = 'Georgia';
+
 let salesChart =
 document.getElementById('salesChart');
 
 if(salesChart)
 {
     const monthlyLabels = [
-
         <?php
-
         $bulan = [
             1 => 'Jan',
             2 => 'Feb',
@@ -223,71 +223,49 @@ if(salesChart)
             11 => 'Nov',
             12 => 'Des'
         ];
-
         foreach($monthly_sales as $row)
         {
             echo "'".$bulan[$row->month]."',";
         }
-
         ?>
-
     ];
 
     const monthlyData = [
-
         <?php
-
         foreach($monthly_sales as $row)
         {
             echo $row->total_sales.",";
         }
-
         ?>
-
     ];
 
     new Chart(
         salesChart,
         {
             type: 'line',
-
             data: {
-
                 labels: monthlyLabels,
-
                 datasets: [{
-                    label: 'Sales Graph',
-
+                    label: 'Revenue',
                     data: monthlyData,
-
                     borderColor: '#1e3c72',
-
                     backgroundColor:
                     'rgba(30,60,114,0.15)',
-
                     borderWidth: 3,
-
                     fill: true,
-
                     tension: 0.4
                 }]
             },
 
             options: {
-
                 responsive: true,
-
                 plugins: {
-
                     legend: {
                         display: true
                     }
                 },
-
                 scales: {
-
                     y: {
-
                         beginAtZero: true
                     }
                 }
@@ -301,6 +279,8 @@ if(salesChart)
 <?php endif; ?>
 
 <script>
+
+Chart.defaults.font.family = 'Georgia';
 
 new Chart(
     document.getElementById(

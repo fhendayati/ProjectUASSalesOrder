@@ -12,17 +12,54 @@
 
                 <div class="card-body">
 
-                    <?php if($this->session->userdata('role_id') == 2): ?>
+                    <div class="d-flex align-items-center mb-3">
 
-                    <a href="<?= base_url('index.php/orders/add'); ?>"
-                    class="btn btn-primary mb-3">
+                        <?php if($this->session->userdata('role_id') == 2): ?>
 
-                        <i class="fas fa-plus"></i>
-                        Add Order
+                        <a href="<?= base_url('index.php/orders/add'); ?>"
+                        class="btn btn-primary mr-2">
 
-                    </a>
+                            <i class="fas fa-plus"></i>
+                            Add Order
 
-                    <?php endif; ?>
+                        </a>
+
+                        <?php endif; ?>
+
+                        <form method="GET" class="mb-0">
+
+                            <select
+                                name="status"
+                                class="form-control filter-status"
+                                onchange="this.form.submit()">
+
+                                <option value="">All Status</option>
+
+                                <option value="draft"
+                                    <?= ($status=='draft') ? 'selected' : ''; ?>>
+                                    Draft
+                                </option>
+
+                                <option value="dikirim"
+                                    <?= ($status=='dikirim') ? 'selected' : ''; ?>>
+                                    Dikirim
+                                </option>
+
+                                <option value="selesai"
+                                    <?= ($status=='selesai') ? 'selected' : ''; ?>>
+                                    Selesai
+                                </option>
+
+                                <option value="dibatalkan"
+                                    <?= ($status=='dibatalkan') ? 'selected' : ''; ?>>
+                                    Dibatalkan
+                                </option>
+
+                            </select>
+
+                        </form>
+
+                    </div>
 
                     <table class="table table-bordered" id="dataTable">
 
@@ -31,7 +68,7 @@
                                 <th>No</th>
                                 <th>Date</th>
                                 <th>Customer</th>
-                                <th>Sales Person Name</th>
+                                <th>Sales Name</th>
                                 <th>Total (Rp)</th>
                                 <th>Status</th>
                                 <th width="180">Action</th>

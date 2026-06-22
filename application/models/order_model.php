@@ -5,7 +5,7 @@ class order_model extends CI_Model
 {
     private $table = 'orders';
 
-    public function getAll()
+    public function getAll($status = null)
     {
         $this->db->select('orders.*, customers.customer_name, users.name as sales_name');
         $this->db->from('orders');
@@ -13,12 +13,17 @@ class order_model extends CI_Model
         $this->db->join('customers', 'customers.id = orders.customer_id');
         $this->db->join('users', 'users.id = orders.user_id');
 
+        if($status)
+        {
+            $this->db->where('orders.status', $status);
+        }
+
         $this->db->order_by('orders.order_date', 'ASC');
 
         return $this->db->get()->result();
     }
     
-    public function getByUser($user_id)
+    public function getByUser($user_id, $status = null)
     {
         $this->db->select('orders.*, customers.customer_name, users.name as sales_name');
         $this->db->from('orders');
@@ -27,6 +32,11 @@ class order_model extends CI_Model
         $this->db->join('users', 'users.id = orders.user_id');
 
         $this->db->where('orders.user_id', $user_id);
+
+        if($status)
+        {
+            $this->db->where('orders.status', $status);
+        }
 
         $this->db->order_by('orders.order_date', 'ASC');
 
